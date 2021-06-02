@@ -1,5 +1,5 @@
 {
-    "name": "@yuyaryshev/ycplmon",
+    "name": "ycplmon",
     "version": "1.0.0",
     "description": "Makes all inclusions of string CODExxxxxxxx unique.",
     "main": "bin/ycplmon.js",
@@ -30,13 +30,13 @@
         "test": "jest",
         "tsc": "tsc",
         "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
-        "republish": "npm run build && npx version-select && npx genversion --es6 --semi version.js && npm publish && npm i -g @yuyaryshev/ycplmon@latest && ycplmon2 --version && ycplmon --version && ycplmon fix .",
+        "republish": "npm run build && npx version-select && npx genversion --es6 --semi version.js && npm publish && npm i -g ycplmon@latest && ycplmon2 --version && ycplmon --version && ycplmon fix .",
         "start": "node bin/ycplmon.js"
     },
-    "homepage": "http://git.yyadev.com/yuyaryshev/yparser_generator.git",
+    "homepage": "https://github.com/yuyaryshev/ycplmon.git",
     "repository": {
         "type": "git",
-        "url": "http://git.yyadev.com/yuyaryshev/yparser_generator.git"
+        "url": "https://github.com/yuyaryshev/ycplmon.git"
     },
     "keywords": [
         "parser",
@@ -44,7 +44,7 @@
     ],
     "author": "Yuri Yaryshev",
     "publishConfig": {
-        "registry": "http://yyadev.com:4873/"
+        "registry": "http://registry.npmjs.org"
     },
     "license": "Unlicense",
     "devDependencies": {
