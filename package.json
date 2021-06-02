@@ -1,0 +1,88 @@
+{
+    "name": "@yuyaryshev/ycplmon",
+    "version": "1.0.0",
+    "description": "Makes all inclusions of string CODExxxxxxxx unique.",
+    "main": "bin/ycplmon.js",
+    "type": "module",
+    "module": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
+    "bin": {
+        "ycplmon": "bin/ycplmon.js",
+        "ycplmon2": "bin/ycplmon.js"
+    },
+    "files": [
+        ".gitignore",
+        "package.json",
+        "LICENSE",
+        "bin/**/*.js",
+        "lib/**/*.js",
+        "dist/**/*.js",
+        "version.js",
+        "readme.md"
+    ],
+    "scripts": {
+        "build": "inprint & npm run lint && npm run build:clean && npm run build:ts && npm run build:docs",
+        "build:ts": "tsc",
+        "watch": "tsc -w",
+        "build_old:ts": "npx rollup -c",
+        "build:docs": "api-extractor run --local && api-documenter markdown --input-folder temp --output-folder docs",
+        "build:clean": "rm -rf ./dist/*",
+        "test": "jest",
+        "tsc": "tsc",
+        "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+        "republish": "npm run build && npx version-select && npx genversion --es6 --semi version.js && npm publish && npm i -g @yuyaryshev/ycplmon@latest && ycplmon2 --version && ycplmon --version && ycplmon fix .",
+        "start": "node bin/ycplmon.js"
+    },
+    "homepage": "http://git.yyadev.com/yuyaryshev/yparser_generator.git",
+    "repository": {
+        "type": "git",
+        "url": "http://git.yyadev.com/yuyaryshev/yparser_generator.git"
+    },
+    "keywords": [
+        "parser",
+        "generator"
+    ],
+    "author": "Yuri Yaryshev",
+    "publishConfig": {
+        "registry": "http://yyadev.com:4873/"
+    },
+    "license": "Unlicense",
+    "devDependencies": {
+        "@babel/core": "^7.14.3",
+        "@microsoft/api-documenter": "^7.13.9",
+        "@microsoft/api-extractor": "^7.15.2",
+        "@types/chai": "^4.2.18",
+        "@types/jest": "^26.0.23",
+        "@types/luxon": "^1.26.5",
+        "@typescript-eslint/eslint-plugin": "^4.24.0",
+        "@typescript-eslint/parser": "^4.24.0",
+        "babel-loader": "^8.2.2",
+        "chai": "^4.3.4",
+        "eslint": "^7.26.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.23.2",
+        "eslint-plugin-jsdoc": "^34.8.2",
+        "eslint-plugin-sonarjs": "^0.7.0",
+        "eslint-plugin-tsdoc": "^0.2.14",
+        "javascript-stringify": "^2.1.0",
+        "jest": "^26.6.3",
+        "json5": "^2.2.0",
+        "prettier": "^2.3.0",
+        "ts-jest": "^26.5.6",
+        "tslib": "^2.2.0",
+        "typescript": "^4.2.4"
+    },
+    "jest": {
+        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js"
+        ]
+    },
+    "dependencies": {
+        "commander": "^7.2.0",
+        "ystd": "^1.0.12",
+        "ystd_server": "^1.2.1"
+    }
+}

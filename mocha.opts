@@ -1,0 +1,7 @@
+--color
+--recursive
+--require mocha-steps
+--require source-map-support/register
+--ui bdd
+--timeout 5000
+"./**/*.test.js"

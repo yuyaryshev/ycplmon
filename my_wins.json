@@ -1,0 +1,37 @@
+{
+    "x": 0,
+    "wins": {
+        "ide": { "app": true, "cmd": "D:\\ProgsReady\\IntellijIdeaUI\\bin\\idea64.exe" },
+        "watch": {
+            "cmd": "cls && inprint & npm run ycplmon && watch",
+            "no_run": false
+        },
+        "web_dev": {
+            "cmd": "cls && inprint & npm run ycplmon && web_dev",
+            "no_run": false
+        },
+        "server": {
+            "cmd": "cls && inprint & npm run ycplmon & nodemon ts_out\\src\\start.js --devuser=dev",
+            "no_run": true
+        },
+        "ycplmon": {
+            "cmd": "cls && inprint & npm run ycplmon",
+            "no_run": true
+        },
+        "node": {
+            "cmd": "cls && inprint & npm run ycplmon & node",
+            "no_run": true
+        }
+    },
+    "disabled": {
+        "webstorm": {
+            "cmd": "\"C:\\Program Files\\JetBrains\\WebStorm 2019.2.4\\bin\\webstorm64.exe\"",
+            "app": true,
+            "no_run": false
+        },
+        "tsc": {
+            "cmd": "cls && npm run ycplmon && tsc --watch",
+            "no_run": true
+        }
+    }
+}
