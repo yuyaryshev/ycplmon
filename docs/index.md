@@ -8,5 +8,5 @@
 
 |  Package | Description |
 |  --- | --- |
-|  [@yuyaryshev/ycplmon](./ycplmon.md) |  |
+|  [ycplmon](./ycplmon.md) |  |
 

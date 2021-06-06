@@ -2,10 +2,12 @@
 
 import { join as joinPath, resolve as resolvePath, sep as pathSep } from "path";
 import { Dirent, readFileSync, writeFileSync } from "fs";
-import { IntIdManager } from "ystd";
-import { readDirRecursive } from "ystd_server";
 import { Command } from "commander";
-import { version } from "../version.js";
+import { IntIdManager } from "./IntIdManager.js";
+import { readDirRecursive } from "./readDirRecursive.js";
+
+// @ts-ignore
+import version from "../version.js";
 
 interface Settings {
     srcPath: string;
@@ -205,6 +207,9 @@ export const startup = (settings: Settings) => {
  * Starts up console application
  */
 export function startupConsole() {
+    /**
+     * Replaces dublicate CODEnnnnnnnn with unque ones
+     */
     function fix(targetPath: string, options: any, command: Command) {
         const { db, rebuild, nowatch, interval, nodb } = program.opts();
         const finalOptions = {
@@ -223,15 +228,15 @@ export function startupConsole() {
     const program = new Command();
     program
         .version(version)
-        .option("-w, --watch", "NOT USED - Watch for changes. Warning: loses changes if used with WebStorm!")
-        .option("--rebuild", "NOT USED - Rebuild the database")
-        .option("--db <dbpath>", "NOT USED - Custom path for the database")
-        .option("--nodb", `NOT USED - Don't use database`)
-        .option("--interval", "NOT USED - Interval in seconds before watch notification, default 10 seconds")
+        // .option("-w, --watch", "NOT USED - Watch for changes. Warning: loses changes if used with WebStorm!")
+        // .option("--rebuild", "NOT USED - Rebuild the database")
+        // .option("--db <dbpath>", "NOT USED - Custom path for the database")
+        // .option("--nodb", `NOT USED - Don't use database`)
+        // .option("--interval", "NOT USED - Interval in seconds before watch notification, default 10 seconds")
         .command("* [targetPath]")
         .action(fix)
         .command("fix [targetPath]")
-        .description("Fixes cpls for specified path")
+        .description("Replaces dublicate CODEnnnnnnnn with unque ones in all files in targetpath")
         .action(fix);
 
     program.parse(process.argv);
