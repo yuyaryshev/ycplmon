@@ -1,11 +1,106 @@
 {
     "name": "ycplmon",
     "version": "1.0.6",
+    "keywords": [
+        "parser",
+        "generator"
+    ],
     "description": "Makes all inclusions of string CODExxxxxxxx unique.",
-    "main": "bin/ycplmon.js",
-    "type": "commonjs",
-    "module": "./dist/index.js",
-    "typings": "./dist/index.d.ts",
+    "author": "Yuri Yaryshev",
+    "main": "lib/cjs/index.js",
+    "module": "lib/esm/index.js",
+    "exports": {
+        ".": {
+            "import": "./lib/mjs/index.js",
+            "require": "./lib/cjs/index.js"
+        }
+    },
+    "typings": "lib/types/index.d.ts",
+    "homepage": "https://github.com/yuyaryshev/ycplmon",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yuyaryshev/ycplmon"
+    },
+    "license": "Unlicense",
+    "publishConfig": {
+        "registry": "http://registry.npmjs.org"
+    },
+    "jest": {
+        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+        "rootDir": "src",
+        "preset": "ts-jest",
+        "resolver": "jest-ts-webcompat-resolver"
+    },
+    "scripts": {
+        "build": "npm run precompile_full && npm run clean:all && npm run build:esm && npm run build:cjs && npm run build:types && npm run lint && npm run test && npm run build:docs",
+        "build:ts": "npm run clean:ts && tsc",
+        "build:docs": "api-extractor run --local && api-documenter markdown --input-folder temp --output-folder docs",
+        "test": "jest --passWithNoTests",
+        "tsc": "npm run build:ts",
+        "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+        "republish": "npm run build && npx version-select && npx genversion --es6 --semi version.js && npm publish",
+        "precompile": "inprint && ycplmon2 fix src && eslint src --fix --quiet",
+        "precompile_full": "npm run precompile && prettier src --write",
+        "clean:cjs": "yb clean_cjs",
+        "build:cjs": "npm run clean:cjs && babel src --config-file ./babel.cjs.config.cjs --out-dir lib/cjs --extensions \".ts,.tsx,.js,.jsx\" --source-maps ",
+        "watch:cjs": "npm run clean:cjs && babel src --config-file ./babel.cjs.config.cjs --out-dir lib/cjs --extensions \".ts,.tsx,.js,.jsx\" --source-maps -w",
+        "clean:esm": "yb clean_esm",
+        "build:esm": "npm run clean:esm && babel src --config-file ./babel.esm.config.cjs --out-dir lib/esm --extensions \".ts,.tsx,.js,.jsx\" --source-maps ",
+        "watch:esm": "npm run clean:esm && babel src --config-file ./babel.esm.config.cjs --out-dir lib/esm --extensions \".ts,.tsx,.js,.jsx\" --source-maps -w",
+        "clean:types": "yb clean_types",
+        "build:types": "npm run clean:types && tsc -p tsconfig-declarations.json",
+        "watch:types": "npm run clean:types && tsc -p tsconfig-declarations.json -w",
+        "clear:docs": "rm -rf docs/*",
+        "clean:all": "rm -rf dist/* && yb clean_all && npm run clear:docs",
+        "clean:ts": "yb clean_ts",
+        "deps": "echo Finding loops in .js requires... & del deps.png & madge dist -c -i deps.png && deps.png",
+        "deps_all": "echo Generating full .js requires tree... & del deps.png & madge dist -i deps.png && deps.png",
+        "deps_orphans": "echo Finding orphans .js requires... & del deps.png & madge dist --orphans -i deps.png && deps.png"
+    },
+    "devDependencies": {
+        "@babel/core": "7.14.3",
+        "@microsoft/api-documenter": "^7.13.16",
+        "@microsoft/api-extractor": "^7.16.1",
+        "@types/jest": "^26.0.23",
+        "@typescript-eslint/eslint-plugin": "^4.26.0",
+        "@typescript-eslint/parser": "^4.26.0",
+        "babel-loader": "^8.2.2",
+        "eslint": "^7.28.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.23.4",
+        "eslint-plugin-jsdoc": "^35.1.2",
+        "eslint-plugin-sonarjs": "^0.7.0",
+        "eslint-plugin-tsdoc": "^0.2.14",
+        "javascript-stringify": "^2.1.0",
+        "jest": "^27.0.4",
+        "json5": "^2.2.0",
+        "prettier": "^2.3.1",
+        "ts-jest": "^27.0.2",
+        "typescript": "^4.3.2",
+        "@babel/cli": "7.14.3",
+        "@babel/node": "^7.14.2",
+        "@babel/parser": "7.14.4",
+        "@babel/plugin-proposal-class-properties": "^7.13.0",
+        "@babel/plugin-proposal-decorators": "^7.14.2",
+        "@babel/plugin-proposal-object-rest-spread": "^7.14.4",
+        "@babel/plugin-proposal-optional-chaining": "7.14.2",
+        "@babel/plugin-transform-modules-commonjs": "^7.14.0",
+        "@babel/plugin-transform-typescript": "^7.14.4",
+        "sinon": "^11.1.1",
+        "@types/sinon": "^10.0.2",
+        "babel-plugin-inline-replace-variables": "^1.3.1",
+        "babel-plugin-module-resolver": "^4.1.0",
+        "babel-watch": "^7.4.1",
+        "inprint": "^1.2.12",
+        "jest-ts-webcompat-resolver": "^1.0.0",
+        "pretty-quick": "^3.1.0",
+        "tslib": "^2.2.0",
+        "cross-env": "^7.0.3"
+    },
+    "dependencies": {
+        "tslib": "^2.2.0",
+        "commander": "^7.2.0"
+    },
     "bin": {
         "ycplmon": "bin/ycplmon.js",
         "ycplmon2": "bin/ycplmon.js"
@@ -19,67 +114,5 @@
         "dist/**/*.js",
         "version.js",
         "readme.md"
-    ],
-    "scripts": {
-        "build": "inprint & npm run lint && npm run build:clean && npm run build:ts",
-        "build:ts": "tsc",
-        "watch": "tsc -w",
-        "build_old:ts": "npx rollup -c",
-        "build:docs": "api-extractor run --local && api-documenter markdown --input-folder temp --output-folder docs",
-        "build:clean": "rm -rf ./dist/*",
-        "test": "jest",
-        "tsc": "tsc",
-        "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
-        "republish": "npm run build && npx version-select && npx genversion --semi version.js && npm publish && npm i -g ycplmon@latest && ycplmon2 --version && ycplmon --version && ycplmon fix .",
-        "start": "node bin/ycplmon.js"
-    },
-    "homepage": "https://github.com/yuyaryshev/ycplmon.git",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/yuyaryshev/ycplmon.git"
-    },
-    "keywords": [
-        "parser",
-        "generator"
-    ],
-    "author": "Yuri Yaryshev",
-    "publishConfig": {
-        "registry": "http://registry.npmjs.org"
-    },
-    "license": "Unlicense",
-    "devDependencies": {
-        "@babel/core": "^7.14.3",
-        "@microsoft/api-documenter": "^7.13.13",
-        "@microsoft/api-extractor": "^7.15.2",
-        "@types/chai": "^4.2.18",
-        "@types/jest": "^26.0.23",
-        "@types/luxon": "^1.26.5",
-        "@typescript-eslint/eslint-plugin": "^4.26.0",
-        "@typescript-eslint/parser": "^4.26.0",
-        "babel-loader": "^8.2.2",
-        "eslint": "^7.27.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-import": "^2.23.4",
-        "eslint-plugin-jsdoc": "^35.1.2",
-        "eslint-plugin-sonarjs": "^0.7.0",
-        "eslint-plugin-tsdoc": "^0.2.14",
-        "javascript-stringify": "^2.1.0",
-        "jest": "^27.0.3",
-        "json5": "^2.2.0",
-        "prettier": "^2.3.0",
-        "ts-jest": "^27.0.2",
-        "typescript": "^4.3.2"
-    },
-    "jest": {
-        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-        "moduleFileExtensions": [
-            "ts",
-            "tsx",
-            "js"
-        ]
-    },
-    "dependencies": {
-        "tslib": "^2.2.0",
-        "commander": "^7.2.0"
-    }
+    ]
 }
