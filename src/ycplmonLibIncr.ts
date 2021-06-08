@@ -1,6 +1,6 @@
 // TODO Бесконечно заменяет файл снова и снова. При использовании watch соместно с Webstorm теряются данные.
 
-export const unused91023=0;
+export const unused91023 = 0;
 //
 // import { join as joinPath, sep as pathSep } from "path";
 // import Database from "better-sqlite3";

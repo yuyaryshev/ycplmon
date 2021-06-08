@@ -5,9 +5,7 @@ import { Dirent, readFileSync, writeFileSync } from "fs";
 import { Command } from "commander";
 import { IntIdManager } from "./IntIdManager.js";
 import { readDirRecursive } from "./readDirRecursive.js";
-
-// @ts-ignore
-import version from "../version.js";
+import { version } from "./projmeta.js";
 
 interface Settings {
     srcPath: string;

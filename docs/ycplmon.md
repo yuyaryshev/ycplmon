@@ -4,15 +4,40 @@
 
 ## ycplmon package
 
+## Classes
+
+|  Class | Description |
+|  --- | --- |
+|  [IntIdManager](./ycplmon.intidmanager.md) |  |
+
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
 |  [startupConsole()](./ycplmon.startupconsole.md) | Starts up console application |
 
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [IntervalsSqlRow](./ycplmon.intervalssqlrow.md) |  |
+|  [IntInterval](./ycplmon.intinterval.md) |  |
+
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
+|  [packageName](./ycplmon.packagename.md) |  |
+|  [readDirRecursive](./ycplmon.readdirrecursive.md) |  |
+|  [readDirRecursive2](./ycplmon.readdirrecursive2.md) |  |
 |  [startup](./ycplmon.startup.md) |  |
+|  [version](./ycplmon.version.md) |  |
+
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [IntId](./ycplmon.intid.md) |  |
+|  [ReadDirCallback](./ycplmon.readdircallback.md) |  |
+|  [ReadDirCallback2](./ycplmon.readdircallback2.md) |  |
 
