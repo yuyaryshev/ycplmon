@@ -22,16 +22,18 @@
 |  --- | --- |
 |  [IntervalsSqlRow](./ycplmon.intervalssqlrow.md) |  |
 |  [IntInterval](./ycplmon.intinterval.md) |  |
+|  [Settings](./ycplmon.settings.md) |  |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
+|  [fix\_cpls](./ycplmon.fix_cpls.md) |  |
 |  [packageName](./ycplmon.packagename.md) |  |
 |  [readDirRecursive](./ycplmon.readdirrecursive.md) |  |
 |  [readDirRecursive2](./ycplmon.readdirrecursive2.md) |  |
-|  [startup](./ycplmon.startup.md) |  |
 |  [version](./ycplmon.version.md) |  |
+|  [ycplmonDefaultSettings](./ycplmon.ycplmondefaultsettings.md) |  |
 
 ## Type Aliases
 

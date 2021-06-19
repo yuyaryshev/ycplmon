@@ -7,7 +7,17 @@ import { IntIdManager } from "./IntIdManager.js";
 import { readDirRecursive } from "./readDirRecursive.js";
 import { version } from "./projmeta.js";
 
-interface Settings {
+export const ycplmonDefaultSettings: Settings = {
+    srcPath: "src",
+    dbPath: `src/cpl.db`,
+    rebuildDb: false,
+    watch: false,
+    interval: 300,
+    noDb: true,
+    logEachFixedFile: true,
+};
+
+export interface Settings {
     srcPath: string;
     logEachFixedFile?: boolean;
 
@@ -44,7 +54,8 @@ interface CplItem {
     pos: number;
 }
 
-export const startup = (settings: Settings) => {
+export const fix_cpls = (settings0?: Settings | undefined) => {
+    const settings = { ...ycplmonDefaultSettings, ...(settings0 || {}) };
     console.time(`Finished in`);
     const freeCplManager = new IntIdManager({ a: 1, b: 100000000 });
     const cplJsonPath = resolvePath(settings.srcPath, "cpl.json");
@@ -220,7 +231,7 @@ export function startupConsole() {
             logEachFixedFile: true,
         };
         //console.log(`CODE00000009 fix command started`, finalOptions);
-        startup(finalOptions);
+        fix_cpls(finalOptions);
     }
 
     const program = new Command();
