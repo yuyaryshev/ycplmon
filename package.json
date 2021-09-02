@@ -70,7 +70,6 @@
         "@babel/core": "7.15.0",
         "@microsoft/api-documenter": "^7.13.42",
         "@microsoft/api-extractor": "^7.18.7",
-        "@types/jest": "^27.0.1",
         "@typescript-eslint/eslint-plugin": "^4.30.0",
         "@typescript-eslint/parser": "^4.30.0",
         "babel-loader": "^8.2.2",
